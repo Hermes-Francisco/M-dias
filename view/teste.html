@@ -1,0 +1,71 @@
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    function OpenWindow(url)
+     {
+        config=""
+        config+="toolbar=no,";
+        config+="resizable=yes," 
+        config+="scrollbars=yes,"
+        config+="width=740,"
+        config+="height=400"
+        var window=open(url,"",config);
+        window.focus();
+     }
+</script>
+<html>
+	<div id='tipos'></div>
+
+   
+   <div id='lista'></div>
+</html>
+<script charset="utf-8">
+$.getJSON("/tipos", function(data) {
+		for (i = 0; i < data.length; i++) {
+			$('#tipos').append("<button onclick='ver("+data[i].id+")'>"+data[i].nome+"</button>");		
+		}
+	});
+	var mp3;
+	function ver(tipo){
+	document.getElementById('lista').innerHTML = "";
+	$.getJSON("/arquivos/"+tipo, function(data) {
+		var arquivo = data;
+		mp3 = arquivo.length;
+		var saida = '';
+	    if(tipo == 1)$('#lista').append('<audio id="play" autoplay="yes" controls src=""></audio><button onclick="tocar_tudo()">Tocar todas</button>');
+		
+		for (i = 0; i < arquivo.length; i++) {
+		var interno1 = '../abrir/'
+		var interno2 = arquivo[i].id;
+		var interno3 = '#';
+		if(tipo == 4)interno3 = interno1+interno2;
+		if(tipo > 4)interno3 = '/ab/' + interno2;
+			saida += '<br><a href="'+interno3+'" id="'+i+'" onclick='
+		if(tipo == 1)saida += 'song("'+interno1+interno2+'")';
+		if(tipo == 2 || tipo == 3) saida += 'OpenWindow("'+interno1+interno2+'")';	
+		if(tipo > 4)saida+= 'target="blank"'	
+			saida += '>'+decodeURI(arquivo[i].nome)+'</a>';
+			console.log(saida)
+		}
+        $('#lista').append(saida);
+		});
+}
+	function song(url){
+		document.getElementById('play').src = url;
+	}
+	function tocar_tudo(){
+		var atual = 0;
+		var player = document.getElementById('play');
+		document.getElementById(atual).onclick.call();
+		player.onended = function(){
+			if(atual < mp3 -1){
+				atual = atual + 1;
+				document.getElementById(atual).onclick.call();
+			}
+		}
+	}
+</script>
+	
