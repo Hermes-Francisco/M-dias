@@ -35,8 +35,8 @@ routes.get('/upload/*', (req, res) => {
 	res.send("<html></html>");
 	var array = req.params[0].split("/");
 	
-	var name = array[array.length -1].split(".")[0];
-	var loc = req.params[0];
+	var name = encodeURI(array[array.length -1].split(".")[0]);
+	var loc = encodeURI(req.params[0]);
 	var type = array[array.length -1].split(".")[1];
 	var request = []
 	request.body = {nome:name, local: loc, tipo: type}
