@@ -14,8 +14,14 @@
               <div class="navbar-header">
                 <a class="navbar-brand" href="#">Arquivos</a>
               </div>
-              <ul class="nav navbar-nav" id='tipos'>
+              <ul class="nav navbar-nav">
                 <li class="active"><a href="#" onclick="todos()">Procurar</a></li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Tipos
+					<span class="caret"></span></a>
+					<ul class="dropdown-menu" id="tipos"></ul>
+				</li>
+				<li><a href="#" onclick="adicionar()">Adicionar arquivo</a></li>
                 
               </ul>
             </div>

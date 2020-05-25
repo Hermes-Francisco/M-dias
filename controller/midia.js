@@ -84,6 +84,27 @@ class MidiaController{
 
             
     }
+	storeDialog(req, res){
+        let { nome, local, tipo } = req.body;
+        tipo = tipo.toLowerCase();
+
+        Arquivo.check(local, (arquivo)=>{
+            if(!arquivo[0]){
+                Tipo.showId(tipo, (resposta) => {
+                    if(resposta[0]){
+                        Arquivo.store(nome, local, resposta[0].id, (r)=>{
+                            return res(r);
+                        });
+                    } 
+                    else Tipo.store(tipo, (r) => {
+                        Arquivo.store(nome, local, r.insertId, (r)=>{
+                            return res(r);
+                        });
+                    })            
+                })    
+            }else return res({erro: 'arquivo já registrado'})
+        })     
+    }
 
     update(req, res){
         const { id } = req.params;
