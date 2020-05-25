@@ -46,10 +46,10 @@ function iniMaiuscula(palavra){
     return palavra.substring(0,1).toUpperCase() + palavra.substring(1);
 }
 function tipo(id, nome){
+	$('#pesquisa').hide();
     document.getElementById('Lista-titulo').innerHTML = iniMaiuscula(nome);
     document.getElementById('lista').innerHTML = " ";
-    $('#pesquisa').hide();
-	
+    document.getElementById('pesquisa').innerHTML = " ";
     $.getJSON("/arquivos/"+id, function(data) {
         for(i = 0; i < data.length; i++){
 
