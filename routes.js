@@ -26,13 +26,18 @@ routes.get('/ab/:id', Arquivo.open)
 routes.get('/dir/:id', Arquivo.openDir);
 routes.get('/tipos', Tipo.index);
 
+var dialog = false;
+
 routes.get('/dialog', (req, res) => {
 	shell.exec('start explorer '+ __dirname + "\\registrar.exe");
+	dialog = true;
 	return res.send("<script>window.close()</script>")
 })
+
 routes.get('/upload/*', (req, res) => {
-	console.log(req.params[0])
-	res.send("<html></html>");
+	
+	if(!dialog) return res.send("<html><h1>Origem desconhecida</h1></html>");
+	
 	var array = req.params[0].split("/");
 	
 	var name = encodeURI(array[array.length -1].split(".")[0]);
@@ -40,7 +45,9 @@ routes.get('/upload/*', (req, res) => {
 	var type = array[array.length -1].split(".")[1];
 	var request = []
 	request.body = {nome:name, local: loc, tipo: type}
-    Arquivo.storeDialog(request, (r) =>{console.log(r)});
+    Arquivo.storeDialog(request, (r) => {});
+	
+	return res.send("<html></html>");
 	
 })
 
