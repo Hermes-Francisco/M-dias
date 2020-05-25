@@ -1,22 +1,8 @@
 todos();
 $.getJSON("/tipos", function(data) {
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < data.length; i++) {
         var interno = data[i].id + ", '" +data[i].nome+ "'";
         $('#tipos').append('<li><a href="#" onclick="tipo('+interno+')">'+iniMaiuscula(data[i].nome)+'</a></li>');		
-    }
-    console.log(data.length)
-    var outros ='';
-    for(i = 3; i < data.length; i++){
-        var interno = data[i].id + ", '" +data[i].nome+ "'";
-        outros += '<li><a href="#" onclick="tipo('+interno+')">'+iniMaiuscula(data[i].nome)+'</a></li>';
-    }
-    if(data.length > 3){
-        $('#tipos').append('<li class="dropdown">'+
-        '<a class="dropdown-toggle" data-toggle="dropdown" href="#">Outros'+
-        '<span class="caret"></span></a>'+
-        '<ul class="dropdown-menu" id="otros-tipos">'+outros+
-        '</ul>'+
-      '</li>');
     }
    
 });
@@ -78,6 +64,9 @@ function pesquisa(){
             '<td><a href="../dir/'+data[i].id+'" target="blanck">'+diretorio+'</a></td></tr>')
         }
     });
+}
+function adicionar(){
+	$.getJSON('/dialog')
 }
 
 function OpenWindow(url)
