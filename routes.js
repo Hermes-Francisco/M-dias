@@ -40,9 +40,11 @@ routes.get('/upload/*', (req, res) => {
 	
 	var array = req.params[0].split("/");
 	
-	var name = encodeURI(array[array.length -1].split(".")[0]);
 	var loc = encodeURI(req.params[0]);
-	var type = array[array.length -1].split(".")[1];
+	var type = array[array.length -1].split(".");
+	type = type[type.length -1];
+	var name = encodeURI(array[array.length -1].split("."+type)[0]);
+
 	var request = []
 	request.body = {nome:name, local: loc, tipo: type}
     Arquivo.storeDialog(request, (r) => {});
