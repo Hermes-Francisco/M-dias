@@ -32,10 +32,11 @@ function iniMaiuscula(palavra){
     return palavra.substring(0,1).toUpperCase() + palavra.substring(1);
 }
 function tipo(id, nome){
+	
 	$('#pesquisa').hide();
     document.getElementById('Lista-titulo').innerHTML = iniMaiuscula(nome);
     document.getElementById('lista').innerHTML = " ";
-    document.getElementById('pesquisa').innerHTML = " ";
+	
     $.getJSON("/arquivos/"+id, function(data) {
         for(i = 0; i < data.length; i++){
 
@@ -54,6 +55,7 @@ function pesquisa(){
     if(query == ''){return todos()}
     document.getElementById('Lista-titulo').innerHTML = "Resultados";
     document.getElementById('lista').innerHTML = " ";
+	
     $.getJSON("/search/"+query, function(data) {
         for(i = 0; i < data.length; i++){
 
