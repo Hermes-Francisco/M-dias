@@ -12,6 +12,8 @@ function prevent(e){
 }
 document.getElementById("search").addEventListener('submit', prevent);
 
+
+
 function todos(){
     document.getElementById('Lista-titulo').innerHTML = "Procurar";
     document.getElementById('lista').innerHTML = " ";
@@ -43,7 +45,7 @@ function tipo(id, nome){
             var dir = data[i].local.split('/');
             var diretorio = iniMaiuscula(decodeURI(dir[dir.length-2]));
 
-            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+decodeURI(data[i].nome)+'</a></td>'+
+            $('#lista').append('<tr class="d-flex"><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+decodeURI(data[i].nome)+'</a></td>'+
             '<td><a href="../dir/'+data[i].id+'" target="blanck">'+diretorio+'</a></td></tr>')
         }
     });
@@ -51,7 +53,7 @@ function tipo(id, nome){
 
 function pesquisa(){
    
-    var query = $('#search').val();
+    var query = $('#pesq').val();
     if(query == ''){return todos()}
     document.getElementById('Lista-titulo').innerHTML = "Resultados";
     document.getElementById('lista').innerHTML = " ";
