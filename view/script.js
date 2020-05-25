@@ -24,12 +24,12 @@ $.getJSON("/tipos", function(data) {
 function prevent(e){
     e.preventDefault();
 }
+document.getElementById("search").addEventListener('submit', prevent);
 
 function todos(){
     document.getElementById('Lista-titulo').innerHTML = "Procurar";
     document.getElementById('lista').innerHTML = " ";
-    document.getElementById('pesquisa').innerHTML = "<form onsubmit='pesquisa()'><input type='text' id='search' placeholder='Digite o nome do arquivo' class='form-control'  /></form>";
-    document.getElementById("search").addEventListener('submit', prevent);
+	$('#pesquisa').show();
     
     $.getJSON("/arquivos/tipo", function(data) {
         for(i = 0; i < data.length; i++){
@@ -48,7 +48,8 @@ function iniMaiuscula(palavra){
 function tipo(id, nome){
     document.getElementById('Lista-titulo').innerHTML = iniMaiuscula(nome);
     document.getElementById('lista').innerHTML = " ";
-    document.getElementById('pesquisa').innerHTML = " ";
+    $('#pesquisa').hide();
+	
     $.getJSON("/arquivos/"+id, function(data) {
         for(i = 0; i < data.length; i++){
 
