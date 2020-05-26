@@ -149,6 +149,7 @@ function excluir(id, nome){
         xhr.send(JSON.stringify({
             "id": id
         }));
+		xhr.response;
 		if(tipo_id > 0)tipo(tipo_id, tipo_nome);
 		else todos();
 	}
