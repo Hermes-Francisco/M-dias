@@ -129,6 +129,7 @@ class MidiaController{
     delete(req, res){
         const { id } = req.body;
         Arquivo.delete(id, (r) => {
+			Tipo.clear();
             return res.json(r)
         });
     }

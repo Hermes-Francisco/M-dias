@@ -31,6 +31,9 @@ class Tipo{
             return res(r);
         });
     }
+	clear(){
+		sql.query('delete from tipo where id not in (select tipo from arquivo) AND id > 3');
+	}
     
 }
 module.exports = new Tipo();
