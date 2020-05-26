@@ -64,6 +64,7 @@ class MidiaController{
     store(req, res){
         let { nome, local, tipo } = req.body;
         tipo = tipo.toLowerCase();
+		local = local.toLowerCase();
 
         Arquivo.check(local, (arquivo)=>{
             if(!arquivo[0]){
@@ -87,6 +88,7 @@ class MidiaController{
 	storeDialog(req, res){
         let { nome, local, tipo } = req.body;
         tipo = tipo.toLowerCase();
+		local = local.toLowerCase();
 
         Arquivo.check(local, (arquivo)=>{
             if(!arquivo[0]){
@@ -109,13 +111,23 @@ class MidiaController{
     update(req, res){
         const { id } = req.params;
         let { nome, local, tipo } = req.body;
-        
-        Arquivo.update(id, nome, local, tipo_id, (r) => {
-            return res.json(r);
-        });
+		tipo = tipo.toLowerCase();
+		local = local.toLowerCase();
+		
+		Tipo.showId(tipo, (resposta) => {
+            if(resposta[0]){
+                Arquivo.update(id, nome, local, resposta[0].id);
+				
+            }else{ 
+			    Tipo.store(tipo, (r) => {
+                 Arquivo.update(id, nome, local, r.insertId);
+				})
+			}
+        })
+		return res.status(200).json({"id":id});
     }
     delete(req, res){
-        const { id } = req.params;
+        const { id } = req.body;
         Arquivo.delete(id, (r) => {
             return res.json(r)
         });

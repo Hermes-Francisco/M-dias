@@ -1,11 +1,14 @@
 todos();
-$.getJSON("/tipos", function(data) {
-    for (i = 0; i < data.length; i++) {
-        var interno = data[i].id + ", '" +data[i].nome+ "'";
-        $('#tipos').append('<li><a href="#" onclick="tipo('+interno+')">'+iniMaiuscula(data[i].nome)+'</a></li>');		
-    }
-   
-});
+function listar_tipos(){
+	document.getElementById('tipos').innerHTML = " "
+	$.getJSON("/tipos", function(data) {
+		for (i = 0; i < data.length; i++) {
+			var interno = data[i].id + ", '" +data[i].nome+ "'";
+			$('#tipos').append('<li><a href="#" onclick="tipo('+interno+')">'+iniMaiuscula(data[i].nome)+'</a></li>');		
+		}
+	});	
+}
+
 
 function prevent(e){
     e.preventDefault();
@@ -20,6 +23,8 @@ var tipo_id;
 var tipo_nome;
 
 function todos(){
+	
+	listar_tipos();
     document.getElementById('Lista-titulo').innerHTML = "Procurar";
     document.getElementById('lista').innerHTML = " ";
 	$('#pesquisa').show();
@@ -30,8 +35,9 @@ function todos(){
             var dir = data[i].local.split('/');
             var diretorio = iniMaiuscula(decodeURI(dir[dir.length-2]));
 			var dirLink = ((host)?"'../dir/"+data[i].id+"' target='blanck'":"#");
+			var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
 			var opcao = ((host)?"<td><a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-right:5px' height='20'></img></a>" + 
-			"<a href='#' onclick='excluir("+data[i].id+")'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
+			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
 
             $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+decodeURI(data[i].nome)+'</a></td>'+
             '<td><a href='+dirLink+'>'+diretorio+'</a></td>'+opcao+'</tr>')
@@ -45,6 +51,7 @@ function iniMaiuscula(palavra){
 }
 function tipo(id, nome){
 	
+	listar_tipos();
 	$('#pesquisa').hide();
     document.getElementById('Lista-titulo').innerHTML = iniMaiuscula(nome);
     document.getElementById('lista').innerHTML = " ";
@@ -55,8 +62,9 @@ function tipo(id, nome){
             var dir = data[i].local.split('/');
             var diretorio = iniMaiuscula(decodeURI(dir[dir.length-2]));
 			var dirLink = ((host)?"'../dir/"+data[i].id+"' target='blanck'":"#");
+			var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
 			var opcao = ((host)?"<td><a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-right:5px' height='20'></img></a>" + 
-			"<a href='#' onclick='excluir("+data[i].id+")'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
+			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
 
             $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+decodeURI(data[i].nome)+'</a></td>'+
             '<td><a href='+dirLink+'>'+diretorio+'</a></td>'+opcao+'</tr>')
@@ -67,7 +75,8 @@ function tipo(id, nome){
 }
 
 function pesquisa(){
-   
+    
+	listar_tipos();
     var query = $('#pesq').val();
     if(query == ''){return todos()}
     document.getElementById('Lista-titulo').innerHTML = "Resultados";
@@ -78,11 +87,17 @@ function pesquisa(){
 
             var dir = data[i].local.split('/');
             var diretorio = iniMaiuscula(decodeURI(dir[dir.length-2]));
+			var dirLink = ((host)?"'../dir/"+data[i].id+"' target='blanck'":"#");
+			var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
+			var opcao = ((host)?"<td><a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-right:5px' height='20'></img></a>" + 
+			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
 
             $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+decodeURI(data[i].nome)+'</a></td>'+
-            '<td><a href="../dir/'+data[i].id+'" target="blanck">'+diretorio+'</a></td></tr>')
+            '<td><a href='+dirLink+'>'+diretorio+'</a></td>'+opcao+'</tr>')
         }
     });
+	tipo_id = 0;
+	tipo_nome = "";
 }
 function adicionar(){
 	$.getJSON('/dialog')
@@ -123,15 +138,59 @@ function midia(tipo, id){
         OpenWindow("../abrir/"+id);
         if(tipo == 2 && player !='')player.pause();
     }
-    if(tipo > 3)OpenWindow("../ab/"+id)
+    if(tipo > 3)OpenWindow(((host)?"../ab/"+id : "../abrir/"+id))
 }
-function excluir(id){
-	var xhr = new XMLHttpRequest();
+function excluir(id, nome){
+	var pergunta = confirm("Deseja excluir o arquivo '"+nome+"' da lista?")
+	if(pergunta){
+		var xhr = new XMLHttpRequest();
         xhr.open("delete", '/', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({
             "id": id
         }));
+		if(tipo_id > 0)tipo(tipo_id, tipo_nome);
+		else todos();
+	}
+}
+var id_editado = 0;
+var input_nome = document.getElementById("nome_arquivo");
+var input_local = document.getElementById("local_arquivo");
+	
+function editar(id){
+	$('#main').hide();
+	$('#update').show();
+	
+	$.getJSON("/show/"+id , function(data) {
+		input_nome.value = decodeURI(data[0].nome);
+		input_local.value = decodeURI(data[0].local)
+	});
+	id_editado= id;
+}
+function salvar(){
+	var tipo_update = input_local.value.split('.');
+	tipo_update = tipo_update[tipo_update.length-1];
+	
+	var xhr = new XMLHttpRequest();
+        xhr.open("put", '/' +id_editado, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+			"nome": encodeURI(input_nome.value),
+			"local": encodeURI(input_local.value),
+			"tipo" : tipo_update
+        }));
+		xhr.response;
 	if(tipo_id > 0)tipo(tipo_id, tipo_nome);
 	else todos();
+	
+    $('#main').show();
+	$('#update').hide();
+	id_editado = 0;
+}
+function cancelar(){
+	input_local.value = "";
+	input_nome.value = "";
+	$('#main').show();
+	$('#update').hide();
+	id_editado = 0;
 }

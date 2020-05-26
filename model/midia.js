@@ -41,10 +41,10 @@ class Midia{
         })
     }
 
-    update(id, nome, local, tipo, res){
+    update(id, nome, local, tipo){
         sql.query('UPDATE arquivo SET nome = "'+nome+'", local = "'+local+'", tipo='+tipo+' WHERE id='+id, (err, r) => {
             if(err)throw err;
-            return res(r);
+			return r;
         })
     }
 

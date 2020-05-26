@@ -14,6 +14,12 @@ routes.get('/', (req, res) => {
 routes.get('/upload', (req, res) => {
     return res.sendFile(__dirname + "/view/upload.html")
 })
+routes.get('/lapis', (req, res) => {
+    return res.sendFile(__dirname + "/view/lapis.ico")
+})
+routes.get('/lixeira', (req, res) => {
+    return res.sendFile(__dirname + "/view/lixeira.ico")
+})
 
 routes.post('/', Arquivo.store);
 routes.get('/arquivos/:tipo', Arquivo.index);
@@ -51,7 +57,11 @@ routes.get('/upload/*', (req, res) => {
 	
 	return res.send("<html></html>");
 	
-})
+});
+
+routes.get('/show/:id', Arquivo.show)
+routes.delete('/', Arquivo.delete);
+routes.put('/:id', Arquivo.update)
 
 
 module.exports = routes;

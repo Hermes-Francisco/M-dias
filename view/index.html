@@ -26,7 +26,7 @@
               </ul>
             </div>
           </nav>
-          <div class="container">
+          <div class="container" id='main'>
             
             <h2 id='Lista-titulo' align='center'></h2>
             <div id='musica' align='center'></div>
@@ -50,6 +50,18 @@
               </tbody>
             </table>
           </div>
+		  <div class='container' id='update' style='display: none'>
+				<div class="form-group">
+					<label for="nome_arquivo">Nome:</label>
+					<input type="text" class="form-control" id="nome_arquivo">
+				</div>
+				<div class="form-group">
+					<label for="local_arquivo">Local:</label>
+					<input type="text" class="form-control" id="local_arquivo">
+				</div>
+				<button type="button" class="btn btn-primary btn-block" onclick='salvar()'>Salvar</button>
+				<button type="button" class="btn btn-default btn-block" onclick='cancelar()'>Cancelar</button>
+		  </div>
     </body>
     <script src='/script' chartset='UTF-8'></script>
 	
