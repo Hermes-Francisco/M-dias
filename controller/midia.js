@@ -117,13 +117,15 @@ class MidiaController{
 		Tipo.showId(tipo, (resposta) => {
             if(resposta[0]){
                 Arquivo.update(id, nome, local, resposta[0].id);
-				
+				Tipo.clear();				
             }else{ 
 			    Tipo.store(tipo, (r) => {
                  Arquivo.update(id, nome, local, r.insertId);
 				})
+				Tipo.clear();
 			}
         })
+		
 		return res.status(200).json({"id":id});
     }
     delete(req, res){
