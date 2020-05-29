@@ -75,10 +75,11 @@ function tipo(id, nome){
 }
 
 function pesquisa(){
-    
-	listar_tipos();
     var query = $('#pesq').val();
-    if(query == ''){return todos()}
+    if(query == ''){
+		todos();
+	}else{
+	listar_tipos();
     document.getElementById('Lista-titulo').innerHTML = "Resultados";
     document.getElementById('lista').innerHTML = " ";
 	
@@ -98,6 +99,7 @@ function pesquisa(){
     });
 	tipo_id = 0;
 	tipo_nome = "";
+	}
 }
 function adicionar(){
 	$.getJSON('/dialog')
