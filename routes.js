@@ -2,6 +2,7 @@ const { Router } = require('express');
 const routes = new Router();
 const Arquivo = require('./controller/midia');
 const Tipo = require('./controller/tipo');
+const qrcode = require('./controller/qrcode')
 
 const shell = require('shelljs');
 
@@ -59,7 +60,8 @@ routes.get('/upload/*', (req, res) => {
 	
 });
 
-routes.get('/show/:id', Arquivo.show)
+routes.get('/show/:id', Arquivo.show);
+routes.get('/qr', qrcode.generate);
 routes.delete('/', Arquivo.delete);
 routes.put('/:id', Arquivo.update)
 
