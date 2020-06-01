@@ -15,8 +15,7 @@ function prevent(e){
 }
 document.getElementById("search").addEventListener('submit', prevent);
 
-var host = window.location.hostname;
-host = (host == "localhost");
+const host = (window.location.hostname == "localhost");
 if(!host)$(".config").hide();
 
 var tipo_id;
