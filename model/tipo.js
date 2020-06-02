@@ -1,6 +1,4 @@
-const MySql = require('../config/connection');
-SQL = new MySql();
-sql = SQL.sql;
+const sql = require('../config/connection');
 
 class Tipo{
 

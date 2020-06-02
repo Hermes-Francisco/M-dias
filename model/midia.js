@@ -1,6 +1,4 @@
-const connection = require('../config/connection');
-const MySql = new connection();
-const sql = MySql.sql;
+const sql = require('../config/connection');
 
 class Midia{
 

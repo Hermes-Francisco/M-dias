@@ -17,8 +17,8 @@ class Connection{
                     console.log('reinicie a aplicação');
                 }
                 process.exit();
-            }
+            }else shell.exec('start http://localhost:3000')
         });
     }    
 }
-module.exports = Connection;
+module.exports = new Connection().sql;
