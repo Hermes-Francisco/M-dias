@@ -1,3 +1,4 @@
+--DROP DATABASE midias;
 CREATE DATABASE midias;
 USE midias;
 CREATE TABLE if NOT EXISTS tipo(
