@@ -32,7 +32,7 @@ INSERT INTO tipo (id,nome) VALUES
 INSERT INTO tipo_fisica (id,nome) VALUES 
 ('1','vinil'),
 ('2','cd'),
-('3','vhs')
+('3','vhs'),
 ('4','dvd'),
 ('5','bluray'),
 ('6','livro');
