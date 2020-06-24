@@ -12,6 +12,12 @@ routes.get('/teste', (req, res) => {
 routes.get('/', (req, res) => {
     return res.sendFile(__dirname + "/view/index.html")
 })
+routes.get('/digital', (req, res) => {
+    return res.sendFile(__dirname + "/view/arquivos.html")
+})
+routes.get('/fisica', (req, res) => {
+    return res.sendFile(__dirname + "/view/fisica.html")
+})
 routes.get('/upload', (req, res) => {
     return res.sendFile(__dirname + "/view/upload.html")
 })
