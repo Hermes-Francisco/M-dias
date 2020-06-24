@@ -2,7 +2,7 @@ const Fisica = require('../model/Fisica');
 const Tipo = require('../model/tipo');
 const shell = require('shelljs');
 
-class Fisica
+class FisicaController
 {
     index(req, res)
     {
@@ -50,3 +50,5 @@ class Fisica
         });
     }
 }
+
+module.exports = new FisicaController();

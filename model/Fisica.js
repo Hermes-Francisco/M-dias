@@ -66,4 +66,4 @@ class Fisica
     }
 }
 
-modules.export = new Fisica(); 
+module.exports = new Fisica(); 

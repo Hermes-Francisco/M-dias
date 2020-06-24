@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const routes = new Router();
 const Arquivo = require('./controller/midia');
+const Fisica = require('./controller/fisica');
 const Tipo = require('./controller/tipo');
 const qrcode = require('./controller/qrcode')
 
@@ -15,9 +16,17 @@ routes.get('/', (req, res) => {
 routes.get('/digital', (req, res) => {
     return res.sendFile(__dirname + "/view/arquivos.html")
 })
+
+//Midia Fisica
 routes.get('/fisica', (req, res) => {
     return res.sendFile(__dirname + "/view/fisica.html")
-})
+});
+routes.get('/fisica/:tipo', Fisica.index);
+routes.get('/fisica/:id', Fisica.show);
+routes.post('/fisica', Fisica.store);
+routes.put('/fisica/:id', Fisica.update);
+routes.delete('/fisica/:id', Fisica.delete);
+
 routes.get('/upload', (req, res) => {
     return res.sendFile(__dirname + "/view/upload.html")
 })
@@ -34,6 +43,9 @@ routes.get('/search/:query', Arquivo.search);
 routes.get('/abrir/:id', Arquivo.send)
 routes.get('/script', (req, res) => {
     return res.sendFile(__dirname + "/view/script.js")
+})
+routes.get('/script_fisica', (req, res) => {
+    return res.sendFile(__dirname + "/view/script_fisica.js")
 })
 routes.get('/ab/:id', Arquivo.open)
 routes.get('/dir/:id', Arquivo.openDir);
