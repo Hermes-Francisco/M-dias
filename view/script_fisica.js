@@ -83,7 +83,8 @@ function tipo(id, nome){
 	tipo_nome = nome;
 }
 
-function pesquisa(){
+function pesquisa()
+{
     var query = $('#pesq').val();
     if(query == ''){
 		todos();
@@ -110,7 +111,8 @@ function pesquisa(){
 	tipo_nome = "";
 	}
 }
-function adicionar(){
+function adicionar()
+{
     $('#main').hide();
     $('#adicionar').show();
 }
@@ -207,4 +209,35 @@ function cancelar(){
 	$('#main').show();
 	$('#update').hide();
 	id_editado = 0;
+}
+
+//Midia fisica
+function cancelarAdicionar()
+{
+	$('#adicionar').hide();
+	$('#main').show();
+}
+
+function salvarFisica()
+{
+	let input_tipo = document.getElementById("tipo_arquivo2");
+	
+    var xhr = new XMLHttpRequest();
+    
+    xhr.open("post", '/fisica' , true);
+
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.send(
+        JSON.stringify({
+            "nome": encodeURI(input_nome.value),
+            "local": encodeURI(input_local.value),
+            "tipo" : encodeURI(input_tipo),
+        })
+    );
+
+    xhr.response;
+	
+	$('#adicionar').hide();
+    $('#main').show();
 }

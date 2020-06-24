@@ -10,90 +10,108 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">Arquivos</a>
-        </div>
+      <nav class="navbar navbar-inverse">
+          <div class="container-fluid">
+              <div class="navbar-header">
+                  <a class="navbar-brand" href="#">Arquivos</a>
+              </div>
 
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#" onclick="todos()">Procurar</a></li>
+              <ul class="nav navbar-nav">
+                  <li class="active"><a href="#" onclick="todos()">Procurar</a></li>
 
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Tipos
-            <span class="caret"></span></a>
-            <ul class="dropdown-menu" id="tipos"></ul>
-          </li>
+                  <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                          Tipos
+                          <span class="caret"></span>
+                      </a>
+
+                      <ul class="dropdown-menu" id="tipos"></ul>
+                  </li>
+                  
+                  <li>
+                      <a href="#" onclick="adicionar()" class='config'>Adicionar mídia</a>
+                  </li>
+
+                  <li>
+                     <a href="#" onclick="OpenWindow('http://localhost:3000/qr')" class='config'>Link</a>
+                  </li>
+              </ul>
+          </div>
+      </nav>
+        
+      <div class="container" id='main'>
+          <h2 id='Lista-titulo' align='center'></h2>
+
+          <div id='musica' align='center'></div>
           
-          <li>
-            <a href="#" onclick="adicionar()" class='config'>Adicionar mídia</a>
-          </li>
+          <div id='pesquisa'>
+              <form onsubmit='pesquisa()' id='search' align='center'>
+                 <input type='text' id='pesq' placeholder='Digite o nome do arquivo' class='form-control'  />
+              </form>
+          </div>
+          
+          <table class="table table-striped">
+              <thead>
+                  <tr>
+                      <th>Nome</th>
+                      <th>Local</th>
+                      <th class='config' align='center'>Opções</th>
+                  </tr>
+              </thead>
 
-          <li>
-            <a href="#" onclick="OpenWindow('http://localhost:3000/qr')" class='config'>Link</a>
-          </li>
-        </ul>
+              <tbody id='lista'></tbody>
+          </table>
       </div>
-    </nav>
-      
-    <div class="container" id='main'>
-      <h2 id='Lista-titulo' align='center'></h2>
 
-      <div id='musica' align='center'></div>
+      <div class='container' id='update' style='display: none'>
+          <div class="form-group">
+              <label for="nome_arquivo">Nome:</label>
+              <input type="text" class="form-control" id="nome_arquivo">
+          </div>
         
-      <div id='pesquisa'>
-        <form onsubmit='pesquisa()' id='search' align='center'>
-          <input type='text' id='pesq' placeholder='Digite o nome do arquivo' class='form-control'  />
-        </form>
+          <div class="form-group">
+              <label for="local_arquivo">Local:</label>
+              <input type="text" class="form-control" id="local_arquivo">
+          </div>
+          
+          <button type="button" class="btn btn-primary btn-block" onclick='salvar()'>Salvar</button>
+          <button type="button" class="btn btn-default btn-block" onclick='cancelar()'>Cancelar</button>
       </div>
+
+      <div class='container' id='update' style='display: none'>
+          <div class="form-group">
+              <label for="nome_arquivo">Nome:</label>
+              <input type="text" class="form-control" id="nome_arquivo">
+          </div>
         
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Local</th>
-            <th class='config' align='center'>Opções</th>
-          </tr>
-        </thead>
-
-        <tbody id='lista'></tbody>
-      </table>
-    </div>
-
-    <div class='container' id='update' style='display: none'>
-      <div class="form-group">
-        <label for="nome_arquivo">Nome:</label>
-        <input type="text" class="form-control" id="nome_arquivo">
-      </div>
-      
-      <div class="form-group">
-        <label for="local_arquivo">Local:</label>
-        <input type="text" class="form-control" id="local_arquivo">
-      </div>
-      
-      <button type="button" class="btn btn-primary btn-block" onclick='salvar()'>Salvar</button>
-      <button type="button" class="btn btn-default btn-block" onclick='cancelar()'>Cancelar</button>
-    </div>
-
-    <div class='container' id='adicionar' style='display: none'>
-      <div class="form-group">
-        <label for="nome_arquivo">Nome:</label>
-        <input type="text" class="form-control" id="nome_arquivo">
-      </div>
-      
-      <div class="form-group">
-        <label for="local_arquivo">Local:</label>
-        <input type="text" class="form-control" id="local_arquivo">
+          <div class="form-group">
+              <label for="local_arquivo">Local:</label>
+              <input type="text" class="form-control" id="local_arquivo">
+          </div>
+          
+          <button type="button" class="btn btn-primary btn-block" onclick='salvar()'>Salvar</button>
+          <button type="button" class="btn btn-default btn-block" onclick='cancelar()'>Cancelar</button>
       </div>
 
-      <div class="form-group">
-        <label for="tipo_fisico">Tipo:</label>
-        <select id="tipo_arquivo2" class="form-control" id="tipo_fisico"></select>
+      <div class='container' id='adicionar' style='display:none'>
+          <div class="form-group">
+              <label for="nome_arquivo">Nome:</label>
+              <input type="text" class="form-control" id="nome_arquivo">
+          </div>
+
+          <div class="form-group">
+              <label for="tipo_fisico">Tipo:</label>
+              <select id="tipo_arquivo2" class="form-control"></select>
+          </div>
+
+          <div class="form-group">
+              <label for="local_arquivo">Local:</label>
+              <textarea class="form-control" id="local_arquivo" rows="3"></textarea>
+          </div>
+          
+          <button type="button" class="btn btn-primary btn-block" onclick='salvarFisica()'>Salvar</button>
+          <button type="button" class="btn btn-default btn-block" onclick='cancelarAdicionar()'>Cancelar</button>
       </div>
-      
-      <button type="button" class="btn btn-primary btn-block" onclick='salvar()'>Salvar</button>
-      <button type="button" class="btn btn-default btn-block" onclick='cancelar()'>Cancelar</button>
-    </div>
   </body>
 
   <script src='/script_fisica' chartset='UTF-8'></script>
