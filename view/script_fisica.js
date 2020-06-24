@@ -1,12 +1,19 @@
 todos();
 function listar_tipos(){
-	document.getElementById('tipos').innerHTML = " "
-	$.getJSON("/tipos", function(data) {
+	document.getElementById('tipos').innerHTML = " ";
+	$.getJSON("/tipo_fisica", function(data) {
 		for (i = 0; i < data.length; i++) {
 			var interno = data[i].id + ", '" +data[i].nome+ "'";
 			$('#tipos').append('<li><a href="#" onclick="tipo('+interno+')">'+iniMaiuscula(data[i].nome)+'</a></li>');		
 		}
-	});	
+    });    
+
+    document.getElementById('tipo_arquivo2').innerHTML = " ";
+    $.getJSON("/tipo_fisica", function(data) {
+		for (i = 0; i < data.length; i++) {
+			$('#tipo_arquivo2').append('<option value='+data[i].id+'>'+iniMaiuscula(data[i].nome)+'</option>');		
+		}
+    });    
 }
 
 
@@ -45,9 +52,12 @@ function todos(){
 	tipo_id = 0;
 	tipo_nome = "";
 }
-function iniMaiuscula(palavra){
+
+function iniMaiuscula(palavra)
+{
     return palavra.substring(0,1).toUpperCase() + palavra.substring(1);
 }
+
 function tipo(id, nome){
 	
 	listar_tipos();
@@ -101,7 +111,8 @@ function pesquisa(){
 	}
 }
 function adicionar(){
-	$.getJSON('/dialog')
+    $('#main').hide();
+    $('#adicionar').show();
 }
 
 function OpenWindow(url)
@@ -159,7 +170,8 @@ var id_editado = 0;
 var input_nome = document.getElementById("nome_arquivo");
 var input_local = document.getElementById("local_arquivo");
 	
-function editar(id){
+function editar(id)
+{
 	$('#main').hide();
 	$('#update').show();
 	

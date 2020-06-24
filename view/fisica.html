@@ -1,68 +1,100 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta name='viewport' content='width=device-width' />
-        <title>Catálogo de Mídias</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-              <div class="navbar-header">
-                <a class="navbar-brand" href="#">Arquivos</a>
-              </div>
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#" onclick="todos()">Procurar</a></li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Tipos
-					<span class="caret"></span></a>
-					<ul class="dropdown-menu" id="tipos"></ul>
-				</li>
-				<li><a href="#" onclick="adicionar()" class='config'>Adicionar arquivo</a></li>
-                <li><a href="#" onclick="OpenWindow('http://localhost:3000/qr')" class='config'>Link</a></li>
-              </ul>
-            </div>
-          </nav>
-          <div class="container" id='main'>
-            
-            <h2 id='Lista-titulo' align='center'></h2>
-            <div id='musica' align='center'></div>
-            <div id='pesquisa'>
-				<form onsubmit='pesquisa()' id='search' align='center'>
-				<input type='text' id='pesq' placeholder='Digite o nome do arquivo' class='form-control'  />
-				</form>
-			</div>
-		  
-            
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Local</th>
-				  <th class='config' align='center'>Opções</th>
-                </tr>
-              </thead>
-              <tbody id='lista'>
-                
-              </tbody>
-            </table>
-          </div>
-		  <div class='container' id='update' style='display: none'>
-				<div class="form-group">
-					<label for="nome_arquivo">Nome:</label>
-					<input type="text" class="form-control" id="nome_arquivo">
-				</div>
-				<div class="form-group">
-					<label for="local_arquivo">Local:</label>
-					<input type="text" class="form-control" id="local_arquivo">
-				</div>
-				<button type="button" class="btn btn-primary btn-block" onclick='salvar()'>Salvar</button>
-				<button type="button" class="btn btn-default btn-block" onclick='cancelar()'>Cancelar</button>
-		  </div>
-    </body>
+  <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name='viewport' content='width=device-width' />
+      <title>Catálogo de Mídias</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </head>
 
-    <script src='/script_fisica' chartset='UTF-8'></script>
+  <body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Arquivos</a>
+        </div>
+
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#" onclick="todos()">Procurar</a></li>
+
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Tipos
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu" id="tipos"></ul>
+          </li>
+          
+          <li>
+            <a href="#" onclick="adicionar()" class='config'>Adicionar mídia</a>
+          </li>
+
+          <li>
+            <a href="#" onclick="OpenWindow('http://localhost:3000/qr')" class='config'>Link</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+      
+    <div class="container" id='main'>
+      <h2 id='Lista-titulo' align='center'></h2>
+
+      <div id='musica' align='center'></div>
+        
+      <div id='pesquisa'>
+        <form onsubmit='pesquisa()' id='search' align='center'>
+          <input type='text' id='pesq' placeholder='Digite o nome do arquivo' class='form-control'  />
+        </form>
+      </div>
+        
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Local</th>
+            <th class='config' align='center'>Opções</th>
+          </tr>
+        </thead>
+
+        <tbody id='lista'></tbody>
+      </table>
+    </div>
+
+    <div class='container' id='update' style='display: none'>
+      <div class="form-group">
+        <label for="nome_arquivo">Nome:</label>
+        <input type="text" class="form-control" id="nome_arquivo">
+      </div>
+      
+      <div class="form-group">
+        <label for="local_arquivo">Local:</label>
+        <input type="text" class="form-control" id="local_arquivo">
+      </div>
+      
+      <button type="button" class="btn btn-primary btn-block" onclick='salvar()'>Salvar</button>
+      <button type="button" class="btn btn-default btn-block" onclick='cancelar()'>Cancelar</button>
+    </div>
+
+    <div class='container' id='adicionar' style='display: none'>
+      <div class="form-group">
+        <label for="nome_arquivo">Nome:</label>
+        <input type="text" class="form-control" id="nome_arquivo">
+      </div>
+      
+      <div class="form-group">
+        <label for="local_arquivo">Local:</label>
+        <input type="text" class="form-control" id="local_arquivo">
+      </div>
+
+      <div class="form-group">
+        <label for="tipo_fisico">Tipo:</label>
+        <select id="tipo_arquivo2" class="form-control" id="tipo_fisico"></select>
+      </div>
+      
+      <button type="button" class="btn btn-primary btn-block" onclick='salvar()'>Salvar</button>
+      <button type="button" class="btn btn-default btn-block" onclick='cancelar()'>Cancelar</button>
+    </div>
+  </body>
+
+  <script src='/script_fisica' chartset='UTF-8'></script>
 </html>

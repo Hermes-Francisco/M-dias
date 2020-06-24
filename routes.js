@@ -3,6 +3,7 @@ const routes = new Router();
 const Arquivo = require('./controller/midia');
 const Fisica = require('./controller/fisica');
 const Tipo = require('./controller/tipo');
+const TipoFisica = require('./controller/TipoFisica');
 const qrcode = require('./controller/qrcode')
 
 const shell = require('shelljs');
@@ -21,6 +22,8 @@ routes.get('/digital', (req, res) => {
 routes.get('/fisica', (req, res) => {
     return res.sendFile(__dirname + "/view/fisica.html")
 });
+routes.get('/tipo_fisica', TipoFisica.index);
+routes.get('/tipo_fisica/:id', TipoFisica.show);
 routes.get('/fisica/:tipo', Fisica.index);
 routes.get('/fisica/:id', Fisica.show);
 routes.post('/fisica', Fisica.store);
