@@ -62,17 +62,18 @@ routes.get('/ab/:id', Arquivo.open)
 routes.get('/dir/:id', Arquivo.openDir);
 routes.get('/tipos', Tipo.index);
 
-var dialog = false;
+function checkIp(req, res, next){
+	if(req.connection.remoteAddress == '::1'){
+		return next();
+	}else return res.send("<h1>Não Autorizado</h1>")
+}
 
-routes.get('/dialog', (req, res) => {
+routes.get('/dialog', checkIp, (req, res) => {
 	shell.exec('start explorer '+ __dirname + "\\registrar.exe");
-	dialog = true;
 	return res.send("<script>window.close()</script>")
 })
 
-routes.get('/upload/*', (req, res) => {
-	
-	//if(!dialog) return res.send("<html><h1>Origem desconhecida</h1></html>");
+routes.get('/upload/*', checkIp, (req, res) => {
 	
 	var array = req.params[0].split("/");
 	
