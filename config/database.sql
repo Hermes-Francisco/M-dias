@@ -1,4 +1,3 @@
---DROP DATABASE midias;
 CREATE DATABASE midias;
 USE midias;
 CREATE TABLE if NOT EXISTS tipo(
@@ -29,7 +28,7 @@ INSERT INTO tipo (id,nome) VALUES
 ('1','mp3'),
 ('2','mp4'),
 ('3','pdf');
---('4','html');--
+
 INSERT INTO tipo_fisica (id,nome) VALUES 
 ('1','vinil'),
 ('2','cd'),

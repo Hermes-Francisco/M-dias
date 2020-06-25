@@ -13,14 +13,14 @@ class Fisica
         });
     }
 
-    update(id, nome, local, tipo, res) 
+    update(id, nome, local, tipo) 
     {
         sql.query('UPDATE fisica SET nome = "'+nome+'", local = "'+local+'", tipo='+tipo+' WHERE id='+id, (err, r) => {
             if (err) {
                 throw err;
             }
 
-			return res(r);
+			return;
         });
     }
 
@@ -56,7 +56,7 @@ class Fisica
 
     show(id, res)
     {
-        sql.query('select nome, local from fisica where id='+id, (err, r) => {
+        sql.query('select nome, local, tipo from fisica where id='+id, (err, r) => {
             if(err) {
                 throw err;
             }

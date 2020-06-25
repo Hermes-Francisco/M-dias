@@ -17,6 +17,13 @@ routes.get('/', (req, res) => {
 routes.get('/digital', (req, res) => {
     return res.sendFile(__dirname + "/view/arquivos.html")
 })
+routes.get('/livro', (req, res) => {
+    return res.sendFile(__dirname + "/view/livro.ico")
+})
+routes.get('/processor', (req, res) => {
+    return res.sendFile(__dirname + "/view/processor.ico")
+})
+
 
 //Midia Fisica
 routes.get('/fisica', (req, res) => {
@@ -25,16 +32,16 @@ routes.get('/fisica', (req, res) => {
 routes.get('/tipo_fisica', TipoFisica.index);
 routes.get('/tipo_fisica/:id', TipoFisica.show);
 routes.get('/fisica/:tipo', Fisica.index);
-routes.get('/fisica/:id', Fisica.show);
+routes.get('/fisica/id/:id', Fisica.show);
 routes.post('/fisica', Fisica.store);
 routes.put('/fisica/:id', Fisica.update);
-routes.delete('/fisica/:id', Fisica.delete);
+routes.delete('/fisica', Fisica.delete);
 
-routes.get('/upload', (req, res) => {
-    return res.sendFile(__dirname + "/view/upload.html")
-})
 routes.get('/lapis', (req, res) => {
     return res.sendFile(__dirname + "/view/lapis.ico")
+})
+routes.get('/fisica/show/:id', (req, res) => {
+    return res.sendFile(__dirname + "/view/show.html")
 })
 routes.get('/lixeira', (req, res) => {
     return res.sendFile(__dirname + "/view/lixeira.ico")

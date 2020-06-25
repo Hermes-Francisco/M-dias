@@ -1,11 +1,13 @@
 todos();
+tipo_vetor = [];
 function listar_tipos(){
 	document.getElementById('tipos').innerHTML = " ";
 	$.getJSON("/tipo_fisica", function(data) {
 		for (i = 0; i < data.length; i++) {
 			var interno = data[i].id + ", '" +data[i].nome+ "'";
 			$('#tipos').append('<li><a href="#" onclick="tipo('+interno+')">'+iniMaiuscula(data[i].nome)+'</a></li>');		
-		}
+            tipo_vetor[data[i].id] = iniMaiuscula(data[i].nome);
+        }
     });    
 
     document.getElementById('tipo_arquivo2').innerHTML = " ";
@@ -42,17 +44,14 @@ function todos(){
 	$('#pesquisa').show();
     
     $.getJSON("/fisica/tipo", function(data) {
-        for(i = 0; i < data.length; i++){
+       for(i = 0; i < data.length; i++){
 
-            var dir = data[i].local.split('/');
-            var diretorio = iniMaiuscula(decodeURI(dir[dir.length-2]));
-			var dirLink = ((host)?"'../dir/"+data[i].id+"' target='blanck'":"#");
-			var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
-			var opcao = ((host)?"<td><a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-right:5px' height='20'></img></a>" + 
-			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
-
-            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+decodeURI(data[i].nome)+'</a></td>'+
-            '<td><a href='+dirLink+'>'+diretorio+'</a></td>'+opcao+'</tr>')
+          var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
+			var opcao = "<td><a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-right:5px' height='20'></img></a>" + 
+			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>"
+            var nome_do_tipo = "'"+tipo_vetor[data[i].tipo]+"'";
+            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].id+')">'+decodeURI(data[i].nome)+'</a>'+
+            '<td><a href="#"onclick="tipo('+data[i].tipo+','+nome_do_tipo+')">'+tipo_vetor[data[i].tipo]+'</a></td></td>'+opcao+'</tr>')
         }
     });
 	tipo_id = 0;
@@ -72,17 +71,14 @@ function tipo(id, nome){
     document.getElementById('lista').innerHTML = " ";
 	
     $.getJSON("/fisica/"+id, function(data) {
-        for(i = 0; i < data.length; i++){
+       for(i = 0; i < data.length; i++){
 
-            var dir = data[i].local.split('/');
-            var diretorio = iniMaiuscula(decodeURI(dir[dir.length-2]));
-			var dirLink = ((host)?"'../dir/"+data[i].id+"' target='blanck'":"#");
-			var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
-			var opcao = ((host)?"<td><a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-right:5px' height='20'></img></a>" + 
-			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
+          var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
+			var opcao = "<td><a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-right:5px' height='20'></img></a>" + 
+			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>"
 
-            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+decodeURI(data[i].nome)+'</a></td>'+
-            '<td><a href='+dirLink+'>'+diretorio+'</a></td>'+opcao+'</tr>')
+            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].id+')">'+decodeURI(data[i].nome)+'</a>'+
+            '<td><a href="#">'+tipo_vetor[data[i].tipo]+'</a></td></td>'+opcao+'</tr>')
         }
     });
 	tipo_id = id;
@@ -102,15 +98,12 @@ function pesquisa()
     $.getJSON("/search/"+query, function(data) {
         for(i = 0; i < data.length; i++){
 
-            var dir = data[i].local.split('/');
-            var diretorio = iniMaiuscula(decodeURI(dir[dir.length-2]));
-			var dirLink = ((host)?"'../dir/"+data[i].id+"' target='blanck'":"#");
-			var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
-			var opcao = ((host)?"<td><a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-right:5px' height='20'></img></a>" + 
-			"<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>": "")
-
-            $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].tipo+','+data[i].id+')">'+decodeURI(data[i].nome)+'</a></td>'+
-            '<td><a href='+dirLink+'>'+diretorio+'</a></td>'+opcao+'</tr>')
+            var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
+              var opcao = "<td><a href='#' onclick='editar("+data[i].id+")'><img src='/lapis' style='margin-right:5px' height='20'></img></a>" + 
+              "<a href='#' onclick='"+interno+"'><img src='/lixeira' style='margin-left:5px' height='20'></img></a></td>"
+              var nome_do_tipo = "'"+tipo_vetor[data[i].tipo]+"'";
+              $('#lista').append('<tr><td><a href="#" onclick="midia('+data[i].id+')">'+decodeURI(data[i].nome)+'</a>'+
+              '<td><a href="#"onclick="tipo('+data[i].tipo+','+nome_do_tipo+')">'+tipo_vetor[data[i].tipo]+'</a></td></td>'+opcao+'</tr>')
         }
     });
 	tipo_id = 0;
@@ -152,19 +145,14 @@ function audio(id){
     }
 }
 
-function midia(tipo, id){
-    if(tipo == 1)audio(id);
-    if(tipo == 2 || tipo == 3){
-        OpenWindow("../abrir/"+id);
-        if(tipo == 2 && player !='')player.pause();
-    }
-    if(tipo > 3)OpenWindow(((host)?"../ab/"+id : "../abrir/"+id))
+function midia(id){
+    OpenWindow('/fisica/show/'+id)
 }
 function excluir(id, nome){
 	var pergunta = confirm("Deseja excluir o arquivo '"+nome+"' da lista?")
 	if(pergunta){
 		var xhr = new XMLHttpRequest();
-        xhr.open("delete", '/', true);
+        xhr.open("delete", '/fisica', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify({
             "id": id
@@ -175,21 +163,26 @@ function excluir(id, nome){
 	}
 }
 var id_editado = 0;
-var input_nome;
-var input_local;
-var input_tipo;
+
+var adicionar_nome = document.getElementById("nome_adicionar");
+var adicionar_local = document.getElementById("local_adicionar");
+var adicionar_tipo = document.getElementById("tipo_arquivo3");
+
+var input_nome = document.getElementById("nome_arquivo");
+var input_local = document.getElementById("local_arquivo");
+var input_tipo = document.getElementById("tipo_arquivo2");
+
 	
 function editar(id)
 {
 	$('#main').hide();
     $('#update').show();
-        input_nome = document.getElementById("nome_arquivo");
-        input_local = document.getElementById("local_arquivo");
-        input_tipo = document.getElementById("tipo_arquivo2");
 	
-	$.getJSON("/show/"+id , function(data) {
+	$.getJSON("/fisica/id/"+id , function(data) {
 		input_nome.value = decodeURI(data[0].nome);
-		input_local.value = decodeURI(data[0].local)
+        input_local.value = decodeURI(data[0].local);
+        console.log(data[0].tipo)
+        input_tipo.value = data[0].tipo;
 	});
 	id_editado= id;
 }
@@ -202,23 +195,39 @@ function cancelar()
     $('#main').show();
     input_local.value = "";
     input_nome.value = "";
+    id_editado = 0;
 }
 
 function salvarFisica()
 {
-	input_nome = document.getElementById("nome_adicionar");
-    input_local = document.getElementById("local_adicionar");
-    input_tipo = document.getElementById("tipo_arquivo3");
-
     var xhr = new XMLHttpRequest();
     
     xhr.open("post", '/fisica' , true);
 
     xhr.setRequestHeader('Content-Type', 'application/json');
+    
+    xhr.send(
+        JSON.stringify({
+            "nome": encodeURI(adicionar_nome.value),
+            "local": encodeURI(adicionar_local.value),
+            "tipo" : encodeURI(adicionar_tipo.value),
+        })
+    );
 
-    console.log();
-    console.log();
-    console.log(input_tipo.value);
+    xhr.response;
+    
+    adicionar_local.value = "";
+    adicionar_nome.value = "";
+	$('#adicionar').hide();
+    $('#main').show();
+}
+function salvar()
+{
+    var xhr = new XMLHttpRequest();
+    
+    xhr.open("put", '/fisica/'+id_editado , true);
+
+    xhr.setRequestHeader('Content-Type', 'application/json');
     
     xhr.send(
         JSON.stringify({
@@ -229,9 +238,7 @@ function salvarFisica()
     );
 
     xhr.response;
-    
-    input_local.value = "";
-    input_nome.value = "";
-	$('#adicionar').hide();
+    id_editado = 0;
+	$('#update').hide();
     $('#main').show();
 }
