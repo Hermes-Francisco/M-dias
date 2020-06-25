@@ -1,6 +1,6 @@
 # Mídias 
 
-Software para organização e armazenamento de mídias.
+Software para organização e compartilhamento de mídias.
 
 ## Pré requesitos
 
