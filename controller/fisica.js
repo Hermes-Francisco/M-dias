@@ -21,6 +21,14 @@ class FisicaController
             return res.json(r);
         });
     }
+    like(req, res)
+    {
+        const { nome } = req.params;
+
+        Fisica.like(nome, (r) => {
+            return res.json(r);
+        });
+    }
 
     store(req, res)
     {

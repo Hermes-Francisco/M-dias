@@ -33,6 +33,7 @@ routes.get('/tipo_fisica', TipoFisica.index);
 routes.get('/tipo_fisica/:id', TipoFisica.show);
 routes.get('/fisica/:tipo', Fisica.index);
 routes.get('/fisica/id/:id', Fisica.show);
+routes.get('/fisica/search/:nome', Fisica.like);
 routes.post('/fisica', Fisica.store);
 routes.put('/fisica/:id', Fisica.update);
 routes.delete('/fisica', Fisica.delete);

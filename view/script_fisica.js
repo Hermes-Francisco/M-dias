@@ -95,7 +95,7 @@ function pesquisa()
     document.getElementById('Lista-titulo').innerHTML = "Resultados";
     document.getElementById('lista').innerHTML = " ";
 	
-    $.getJSON("/search/"+query, function(data) {
+    $.getJSON("/fisica/search/"+query, function(data) {
         for(i = 0; i < data.length; i++){
 
             var interno = 'excluir('+data[i].id+', "'+decodeURI(data[i].nome)+'")'
@@ -127,29 +127,12 @@ function OpenWindow(url)
         var window=open(url,"",config);
         window.focus();
      }
-var numero = 0;
-var player='';
-function audio(id){
-    
-    if(numero !=1){
-        $('#musica').append('<audio id="player" src="../abrir/'+id+'" controls autoplay></audio>');
-        player = document.getElementById('player');
-        numero = 1;
-    }else{
-        player.src = '../abrir/'+id;
-    }
-    player.onended = ()=>{
-        document.getElementById('musica').innerHTML = " ";
-        numero = 0;
-        player='';
-    }
-}
 
 function midia(id){
     OpenWindow('/fisica/show/'+id)
 }
 function excluir(id, nome){
-	var pergunta = confirm("Deseja excluir o arquivo '"+nome+"' da lista?")
+	var pergunta = confirm("Deseja excluir a mídia '"+nome+"' da lista?")
 	if(pergunta){
 		var xhr = new XMLHttpRequest();
         xhr.open("delete", '/fisica', true);
@@ -215,6 +198,8 @@ function salvarFisica()
     );
 
     xhr.response;
+		if(tipo_id > 0)tipo(tipo_id, tipo_nome);
+		else todos();
     
     adicionar_local.value = "";
     adicionar_nome.value = "";
@@ -238,6 +223,8 @@ function salvar()
     );
 
     xhr.response;
+		if(tipo_id > 0)tipo(tipo_id, tipo_nome);
+		else todos();
     id_editado = 0;
 	$('#update').hide();
     $('#main').show();
