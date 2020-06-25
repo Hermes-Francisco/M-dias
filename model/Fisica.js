@@ -2,7 +2,7 @@ const sql = require('../config/connection');
 
 class Fisica
 {
-    store(nome, local, tipo)
+    store(nome, local, tipo, res)
     {
         sql.query('insert into fisica (nome, local, tipo) values ("'+nome+'", "'+local+'",'+tipo+')', (err, r) => {
             if (err) {
@@ -13,7 +13,7 @@ class Fisica
         });
     }
 
-    update(id, nome, local, tipo) 
+    update(id, nome, local, tipo, res) 
     {
         sql.query('UPDATE fisica SET nome = "'+nome+'", local = "'+local+'", tipo='+tipo+' WHERE id='+id, (err, r) => {
             if (err) {

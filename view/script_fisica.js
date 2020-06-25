@@ -13,6 +13,12 @@ function listar_tipos(){
 		for (i = 0; i < data.length; i++) {
 			$('#tipo_arquivo2').append('<option value='+data[i].id+'>'+iniMaiuscula(data[i].nome)+'</option>');		
 		}
+    });
+    document.getElementById('tipo_arquivo3').innerHTML = " ";
+    $.getJSON("/tipo_fisica", function(data) {
+		for (i = 0; i < data.length; i++) {
+			$('#tipo_arquivo3').append('<option value='+data[i].id+'>'+iniMaiuscula(data[i].nome)+'</option>');		
+		}
     });    
 }
 
@@ -35,7 +41,7 @@ function todos(){
     document.getElementById('lista').innerHTML = " ";
 	$('#pesquisa').show();
     
-    $.getJSON("/arquivos/tipo", function(data) {
+    $.getJSON("/fisica/tipo", function(data) {
         for(i = 0; i < data.length; i++){
 
             var dir = data[i].local.split('/');
@@ -65,7 +71,7 @@ function tipo(id, nome){
     document.getElementById('Lista-titulo').innerHTML = iniMaiuscula(nome);
     document.getElementById('lista').innerHTML = " ";
 	
-    $.getJSON("/arquivos/"+id, function(data) {
+    $.getJSON("/fisica/"+id, function(data) {
         for(i = 0; i < data.length; i++){
 
             var dir = data[i].local.split('/');
@@ -169,13 +175,17 @@ function excluir(id, nome){
 	}
 }
 var id_editado = 0;
-var input_nome = document.getElementById("nome_arquivo");
-var input_local = document.getElementById("local_arquivo");
+var input_nome;
+var input_local;
+var input_tipo;
 	
 function editar(id)
 {
 	$('#main').hide();
-	$('#update').show();
+    $('#update').show();
+        input_nome = document.getElementById("nome_arquivo");
+        input_local = document.getElementById("local_arquivo");
+        input_tipo = document.getElementById("tipo_arquivo2");
 	
 	$.getJSON("/show/"+id , function(data) {
 		input_nome.value = decodeURI(data[0].nome);
@@ -183,61 +193,45 @@ function editar(id)
 	});
 	id_editado= id;
 }
-function salvar(){
-	var tipo_update = input_local.value.split('.');
-	tipo_update = tipo_update[tipo_update.length-1];
-	
-	var xhr = new XMLHttpRequest();
-        xhr.open("put", '/' +id_editado, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify({
-			"nome": encodeURI(input_nome.value),
-			"local": encodeURI(input_local.value),
-			"tipo" : tipo_update
-        }));
-		xhr.response;
-	if(tipo_id > 0)tipo(tipo_id, tipo_nome);
-	else todos();
-	
-    $('#main').show();
-	$('#update').hide();
-	id_editado = 0;
-}
-function cancelar(){
-	input_local.value = "";
-	input_nome.value = "";
-	$('#main').show();
-	$('#update').hide();
-	id_editado = 0;
-}
 
 //Midia fisica
-function cancelarAdicionar()
+function cancelar()
 {
-	$('#adicionar').hide();
-	$('#main').show();
+    $('#adicionar').hide();
+    $('#update').hide();
+    $('#main').show();
+    input_local.value = "";
+    input_nome.value = "";
 }
 
 function salvarFisica()
 {
-	let input_tipo = document.getElementById("tipo_arquivo2");
-	
+	input_nome = document.getElementById("nome_adicionar");
+    input_local = document.getElementById("local_adicionar");
+    input_tipo = document.getElementById("tipo_arquivo3");
+
     var xhr = new XMLHttpRequest();
     
     xhr.open("post", '/fisica' , true);
 
     xhr.setRequestHeader('Content-Type', 'application/json');
 
+    console.log();
+    console.log();
+    console.log(input_tipo.value);
+    
     xhr.send(
         JSON.stringify({
             "nome": encodeURI(input_nome.value),
             "local": encodeURI(input_local.value),
-            "tipo" : encodeURI(input_tipo),
+            "tipo" : encodeURI(input_tipo.value),
         })
     );
 
     xhr.response;
-	
+    
+    input_local.value = "";
+    input_nome.value = "";
 	$('#adicionar').hide();
     $('#main').show();
 }

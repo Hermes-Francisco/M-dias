@@ -6,6 +6,8 @@ class FisicaController
 {
     index(req, res)
     {
+        const { tipo } = req.params;
+        
         Fisica.index(tipo, (r) => {
             return res.json(r);
         });
@@ -26,7 +28,7 @@ class FisicaController
         tipo = tipo.toLowerCase();
 		local = local.toLowerCase();
 
-        Fisica.store(nome, local, tipo, (r)=>{
+        Fisica.store(nome, local, tipo, (r) => {
             return res.json(r);
         });
     }

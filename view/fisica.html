@@ -29,11 +29,11 @@
                   </li>
                   
                   <li>
-                      <a href="#" onclick="adicionar()" class='config'>Adicionar mídia</a>
+                      <a href="#" onclick="adicionar()" >Adicionar mídia</a>
                   </li>
 
                   <li>
-                     <a href="#" onclick="OpenWindow('http://localhost:3000/qr')" class='config'>Link</a>
+                     <a href="#" onclick="OpenWindow('http://localhost:3000/qr')" >Link</a>
                   </li>
               </ul>
           </div>
@@ -55,7 +55,7 @@
                   <tr>
                       <th>Nome</th>
                       <th>Local</th>
-                      <th class='config' align='center'>Opções</th>
+                      <th  align='center'>Opções</th>
                   </tr>
               </thead>
 
@@ -70,23 +70,13 @@
           </div>
         
           <div class="form-group">
-              <label for="local_arquivo">Local:</label>
-              <input type="text" class="form-control" id="local_arquivo">
+              <label for="tipo_fisico">Tipo:</label>
+              <select id="tipo_arquivo2" class="form-control"></select>
           </div>
           
-          <button type="button" class="btn btn-primary btn-block" onclick='salvar()'>Salvar</button>
-          <button type="button" class="btn btn-default btn-block" onclick='cancelar()'>Cancelar</button>
-      </div>
-
-      <div class='container' id='update' style='display: none'>
-          <div class="form-group">
-              <label for="nome_arquivo">Nome:</label>
-              <input type="text" class="form-control" id="nome_arquivo">
-          </div>
-        
           <div class="form-group">
               <label for="local_arquivo">Local:</label>
-              <input type="text" class="form-control" id="local_arquivo">
+              <textarea class="form-control" id="local_arquivo" rows="3"></textarea>
           </div>
           
           <button type="button" class="btn btn-primary btn-block" onclick='salvar()'>Salvar</button>
@@ -95,22 +85,22 @@
 
       <div class='container' id='adicionar' style='display:none'>
           <div class="form-group">
-              <label for="nome_arquivo">Nome:</label>
-              <input type="text" class="form-control" id="nome_arquivo">
+              <label for="nome_adicionar">Nome:</label>
+              <input id="nome_adicionar" type="text" class="form-control">
           </div>
 
           <div class="form-group">
-              <label for="tipo_fisico">Tipo:</label>
-              <select id="tipo_arquivo2" class="form-control"></select>
+              <label for="tipo_arquivo3">Tipo:</label>
+              <select id="tipo_arquivo3" class="form-control"></select>
           </div>
 
           <div class="form-group">
-              <label for="local_arquivo">Local:</label>
-              <textarea class="form-control" id="local_arquivo" rows="3"></textarea>
+              <label for="local_adicionar">Local:</label>
+              <textarea id="local_adicionar" class="form-control" rows="3"></textarea>
           </div>
           
           <button type="button" class="btn btn-primary btn-block" onclick='salvarFisica()'>Salvar</button>
-          <button type="button" class="btn btn-default btn-block" onclick='cancelarAdicionar()'>Cancelar</button>
+          <button type="button" class="btn btn-default btn-block" onclick='cancelar()'>Cancelar</button>
       </div>
   </body>
 
