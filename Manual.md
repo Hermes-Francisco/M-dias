@@ -1,4 +1,4 @@
-# Mídias 
+# Catálogo de Mídias 
 
 Software para organização e compartilhamento de mídias.
 
