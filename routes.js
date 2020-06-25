@@ -72,7 +72,7 @@ routes.get('/dialog', (req, res) => {
 
 routes.get('/upload/*', (req, res) => {
 	
-	if(!dialog) return res.send("<html><h1>Origem desconhecida</h1></html>");
+	//if(!dialog) return res.send("<html><h1>Origem desconhecida</h1></html>");
 	
 	var array = req.params[0].split("/");
 	

@@ -14,12 +14,18 @@
                 <div class="navbar-header">
                   <a class="navbar-brand" href="#">Catálogo de Mídias</a>
           </div>
+          <ul class="nav navbar-nav">
+          <li>
+            <a href="#" class="config" onclick="OpenWindow('http://localhost:3000/qr')">Link</a>
+          </li>
+        </ul>
         </div>
       </nav>
       <div class='container'>
-        <table class = "table">
+        <h1 align='center'>Catálogo de Mídias</h1>
+        <table class = "table" align="center" style="margin-top: 10%; width: 36rem">
           <tr><td><a href='/fisica'>
-            <div class="card rounded" style="width: 18rem; margin-left: 50%">
+            <div class="card rounded" style="width: 18rem;">
               <img class="card-img-top" src="/livro" alt="Card image cap">
               <div class="card-body">
                 <h3>Mídia Física</h3>
@@ -27,7 +33,7 @@
             </div>
           </a>
           </td><td><a href="/digital">
-            <div class="card rounded" style="width: 18rem; margin-right: 50%;">
+            <div class="card rounded" style="width: 18rem; ">
               <img class="card-img-top" src="/processor">
               <div class="card-body">
                 <h3>Mídia Digital</h3>
@@ -35,9 +41,13 @@
             </div>
           </a>
           </td></tr>
+          </table>
       </div>
     </body>
     
-    <script src='/script' chartset='UTF-8'></script>
+    <script chartset='UTF-8'>
+      const host = (window.location.hostname == "localhost");
+if(!host)$(".config").hide();
+    </script>
 	
 </html>
