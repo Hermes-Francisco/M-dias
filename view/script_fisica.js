@@ -183,49 +183,53 @@ function cancelar()
 
 function salvarFisica()
 {
-    var xhr = new XMLHttpRequest();
-    
-    xhr.open("post", '/fisica' , true);
+	if(adicionar_nome.value != "" && adicionar_local.value != ""){
+		var xhr = new XMLHttpRequest();
+		
+		xhr.open("post", '/fisica' , true);
 
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    
-    xhr.send(
-        JSON.stringify({
-            "nome": encodeURI(adicionar_nome.value),
-            "local": encodeURI(adicionar_local.value),
-            "tipo" : encodeURI(adicionar_tipo.value),
-        })
-    );
+		xhr.setRequestHeader('Content-Type', 'application/json');
+		
+		xhr.send(
+			JSON.stringify({
+				"nome": encodeURI(adicionar_nome.value),
+				"local": encodeURI(adicionar_local.value),
+				"tipo" : encodeURI(adicionar_tipo.value),
+			})
+		);
 
-    xhr.response;
-		if(tipo_id > 0)tipo(tipo_id, tipo_nome);
-		else todos();
-    
-    adicionar_local.value = "";
-    adicionar_nome.value = "";
-	$('#adicionar').hide();
-    $('#main').show();
+		xhr.response;
+			if(tipo_id > 0)tipo(tipo_id, tipo_nome);
+			else todos();
+		
+		adicionar_local.value = "";
+		adicionar_nome.value = "";
+		$('#adicionar').hide();
+		$('#main').show();
+	}else alert("Os campos de nome e local não podem ser vazios");
 }
 function salvar()
 {
-    var xhr = new XMLHttpRequest();
-    
-    xhr.open("put", '/fisica/'+id_editado , true);
+	
+		var xhr = new XMLHttpRequest();
+		
+		xhr.open("put", '/fisica/'+id_editado , true);
 
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    
-    xhr.send(
-        JSON.stringify({
-            "nome": encodeURI(input_nome.value),
-            "local": encodeURI(input_local.value),
-            "tipo" : encodeURI(input_tipo.value),
-        })
-    );
+		xhr.setRequestHeader('Content-Type', 'application/json');
+		
+		xhr.send(
+			JSON.stringify({
+				"nome": encodeURI(input_nome.value),
+				"local": encodeURI(input_local.value),
+				"tipo" : encodeURI(input_tipo.value),
+			})
+		);
 
-    xhr.response;
-		if(tipo_id > 0)tipo(tipo_id, tipo_nome);
-		else todos();
-    id_editado = 0;
-	$('#update').hide();
-    $('#main').show();
+		xhr.response;
+			if(tipo_id > 0)tipo(tipo_id, tipo_nome);
+			else todos();
+		id_editado = 0;
+		$('#update').hide();
+		$('#main').show();
+	
 }

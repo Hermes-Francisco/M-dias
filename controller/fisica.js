@@ -33,8 +33,6 @@ class FisicaController
     store(req, res)
     {
         let { nome, local, tipo } = req.body;
-        tipo = tipo.toLowerCase();
-		local = local.toLowerCase();
 
         Fisica.store(nome, local, tipo, (r) => {
             return res.json(r);
