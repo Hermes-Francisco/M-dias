@@ -47,7 +47,18 @@
     
     <script chartset='UTF-8'>
       const host = (window.location.hostname == "localhost");
-if(!host)$(".config").hide();
+	  if(!host)$(".config").hide();
+		function OpenWindow(url)
+			 {
+				config=""
+				config+="toolbar=no,";
+				config+="resizable=yes," 
+				config+="scrollbars=yes,"
+				config+="width=740,"
+				config+="height=400"
+				var window=open(url,"",config);
+				window.focus();
+			 }
     </script>
 	
 </html>
