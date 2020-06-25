@@ -8,61 +8,57 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>
-    <body>
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-              <div class="navbar-header">
-                <a class="navbar-brand" href="#">Arquivos</a>
-              </div>
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#" onclick="todos()">Procurar</a></li>
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Tipos
-					<span class="caret"></span></a>
-					<ul class="dropdown-menu" id="tipos"></ul>
-				</li>
-				<li><a href="#" onclick="adicionar()" class='config'>Adicionar arquivo</a></li>
-                <li><a href="#" onclick="OpenWindow('http://localhost:3000/qr')" class='config'>Link</a></li>
-              </ul>
-            </div>
-          </nav>
-          <div class="container" id='main'>
-            
-            <h2 id='Lista-titulo' align='center'></h2>
-            <div id='musica' align='center'></div>
-            <div id='pesquisa'>
-				<form onsubmit='pesquisa()' id='search' align='center'>
-				<input type='text' id='pesq' placeholder='Digite o nome do arquivo' class='form-control'  />
-				</form>
-			</div>
-		  
-            
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>Local</th>
-				  <th class='config' align='center'>Opções</th>
-                </tr>
-              </thead>
-              <tbody id='lista'>
-                
-              </tbody>
-            </table>
+    <body>   
+      <nav class="navbar navbar-inverse">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <a class="navbar-brand" href="#">Catálogo de Mídias</a>
           </div>
-		  <div class='container' id='update' style='display: none'>
-				<div class="form-group">
-					<label for="nome_arquivo">Nome:</label>
-					<input type="text" class="form-control" id="nome_arquivo">
-				</div>
-				<div class="form-group">
-					<label for="local_arquivo">Local:</label>
-					<input type="text" class="form-control" id="local_arquivo">
-				</div>
-				<button type="button" class="btn btn-primary btn-block" onclick='salvar()'>Salvar</button>
-				<button type="button" class="btn btn-default btn-block" onclick='cancelar()'>Cancelar</button>
-		  </div>
+          <ul class="nav navbar-nav">
+          <li>
+            <a href="#" class="config" onclick="OpenWindow('http://localhost:3000/qr')">Link</a>
+          </li>
+        </ul>
+        </div>
+      </nav>
+      <div class='container'>
+        <h1 align='center'>Catálogo de Mídias</h1>
+        <table class = "table" align="center" style="margin-top: 10%; width: 36rem">
+          <tr><td><a href='/fisica'>
+            <div class="card rounded" style="width: 18rem;">
+              <img class="card-img-top" src="/livro" alt="Card image cap">
+              <div class="card-body">
+                <h3>Mídia Física</h3>
+              </div>
+            </div>
+          </a>
+          </td><td><a href="/digital">
+            <div class="card rounded" style="width: 18rem; ">
+              <img class="card-img-top" src="/processor">
+              <div class="card-body">
+                <h3>Mídia Digital</h3>
+              </div>
+            </div>
+          </a>
+          </td></tr>
+          </table>
+      </div>
     </body>
-    <script src='/script' chartset='UTF-8'></script>
+    
+    <script chartset='UTF-8'>
+      const host = (window.location.hostname == "localhost");
+	  if(!host)$(".config").hide();
+		function OpenWindow(url)
+			 {
+				config=""
+				config+="toolbar=no,";
+				config+="resizable=yes," 
+				config+="scrollbars=yes,"
+				config+="width=740,"
+				config+="height=400"
+				var window=open(url,"",config);
+				window.focus();
+			 }
+    </script>
 	
 </html>

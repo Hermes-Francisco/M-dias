@@ -28,7 +28,7 @@ INSERT INTO tipo (id,nome) VALUES
 ('1','mp3'),
 ('2','mp4'),
 ('3','pdf');
---('4','html');--
+
 INSERT INTO tipo_fisica (id,nome) VALUES 
 ('1','vinil'),
 ('2','cd'),

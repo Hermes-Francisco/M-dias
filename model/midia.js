@@ -53,4 +53,5 @@ class Midia{
         })
     }
 }
+
 module.exports = new Midia();
